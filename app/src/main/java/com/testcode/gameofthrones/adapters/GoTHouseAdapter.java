@@ -49,6 +49,7 @@ public class GoTHouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         GotCharacterViewHolder gotCharacterViewHolder = (GotCharacterViewHolder) holder;
         gotCharacterViewHolder.render(gcs.get(position));
+
     }
 
     @Override

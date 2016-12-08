@@ -1,15 +1,17 @@
 package com.testcode.gameofthrones.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
+import com.testcode.gameofthrones.FamilyListActivity;
 import com.testcode.gameofthrones.R;
 import com.testcode.gameofthrones.data.HouseColumns;
 import com.testcode.gameofthrones.utils.RecyclerViewCursorAdapter;
@@ -34,11 +36,13 @@ public class HouseAdapter extends RecyclerViewCursorAdapter<HouseAdapter.GotHous
 
     @Override
     protected void onBindViewHolder(GotHousesViewHolder holder, Cursor cursor) {
+        int idpath = cursor.getColumnIndex(HouseColumns.HOUSE_ID_HOUSE);
+        final String houseId = cursor.getString(idpath);
         int impathIndex = cursor.getColumnIndex(HouseColumns.HOUSE_IMAGE_URL_HOUSE);
         final String imgpath = cursor.getString(impathIndex);
+        int nameIndex = cursor.getColumnIndex(HouseColumns.HOUSE_NAME_HOUSE);
+        final String name = cursor.getString(nameIndex);
         if(imgpath.equals("")){
-            int nameIndex = cursor.getColumnIndex(HouseColumns.HOUSE_NAME_HOUSE);
-            final String name = cursor.getString(nameIndex);
             if(name.equals("")){
                 holder.houseName.setVisibility(View.VISIBLE);
                 holder.houseName.setText("NO NAME OR IMG FOR HOUSE");
@@ -52,7 +56,18 @@ public class HouseAdapter extends RecyclerViewCursorAdapter<HouseAdapter.GotHous
         }
         else {
             holder.houseName.setVisibility(View.GONE);
-            Glide.with(mcontext).load(imgpath).asBitmap().into(holder.imp);}
+            Glide.with(mcontext).load(imgpath).asBitmap().into(holder.imp);
+        }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("HOUSE ID",houseId);
+                Intent intent = new Intent(mcontext, FamilyListActivity.class);
+                intent.putExtra("House_Id", houseId);
+                intent.putExtra("House_Name", name);
+                mcontext.startActivity(intent);
+            }
+        });
     }
 
     class GotHousesViewHolder extends RecyclerView.ViewHolder {
