@@ -17,6 +17,8 @@ public class GoTHouse {
     public
     String i;
 
+    public GoTHouse(){}
+
     public String getU() {
         return u;
     }
@@ -39,5 +41,11 @@ public class GoTHouse {
 
     public void setI(final String houseId) {
         this.i = houseId;
+    }
+
+    public GoTHouse(String houseimgurl, String housename, String houseid){
+        this.u = houseimgurl;
+        this.n = housename;
+        this.i = houseid;
     }
 }

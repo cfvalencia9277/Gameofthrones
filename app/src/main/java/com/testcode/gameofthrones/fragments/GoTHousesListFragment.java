@@ -1,7 +1,11 @@
 package com.testcode.gameofthrones.fragments;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +18,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.testcode.gameofthrones.R;
 import com.testcode.gameofthrones.adapters.GoTHouseAdapter;
+import com.testcode.gameofthrones.adapters.HouseAdapter;
+import com.testcode.gameofthrones.data.GoTProvider;
 import com.testcode.gameofthrones.models.GoTCharacter;
 import com.testcode.gameofthrones.models.GoTHouse;
 
@@ -30,8 +36,11 @@ import java.util.List;
  * Created by Fabian on 07/12/2016.
  */
 
-public class GoTHousesListFragment extends Fragment {
+public class GoTHousesListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = "GoTHousesListFragment";
+    private static final int HOUSE_LOADER = 102;
+    HouseAdapter houseAdapter;
+    ContentLoadingProgressBar pb;
 
     public GoTHousesListFragment() {
     }
@@ -39,14 +48,17 @@ public class GoTHousesListFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
-        final ContentLoadingProgressBar pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.pb);
+        pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.pb);
         RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.rv);
+
+        getLoaderManager().initLoader(HOUSE_LOADER,null,this);
+        houseAdapter = new HouseAdapter(getContext());
 
         final GoTHouseAdapter adp = new GoTHouseAdapter(getActivity());
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setHasFixedSize(true);
-        rv.setAdapter(adp);
-
+        rv.setAdapter(houseAdapter);
+/*
         new Thread(new Runnable() {
 
             @Override
@@ -100,6 +112,24 @@ public class GoTHousesListFragment extends Fragment {
                 }
             }
         }).start();
+        */
         return rootView;
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        CursorLoader cl = new CursorLoader(getContext(), GoTProvider.Houses.CONTENT_URI,null,null,null,null);
+        return cl;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        pb.setVisibility(View.GONE);
+        houseAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        houseAdapter.swapCursor(null);
     }
 }

@@ -9,7 +9,7 @@ import net.simonvt.schematic.annotation.Table;
 @Database(version = GoTDB.VERSION)
 public class GoTDB {
     private GoTDB(){}
-    public  static final int VERSION = 2;
+    public  static final int VERSION = 4;
 
     @Table(CharacterColumns.class) public static final String CHARACTERS = "Characters";
     @Table(HouseColumns.class) public static final String HOUSES = "Houses";

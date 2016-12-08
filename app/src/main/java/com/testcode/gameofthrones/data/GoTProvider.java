@@ -57,7 +57,7 @@ public class GoTProvider {
         @ContentUri(
                 path = Path.HOUSES,
                 type = "vnd.android.cursor,dir/Trailers",
-                defaultSort = HouseColumns.HOUSE_NAME+ " ASC")
+                defaultSort = HouseColumns.HOUSE_NAME_HOUSE+ " ASC")
         public static final Uri CONTENT_URI = buildUri(Path.HOUSES);
     }
     @InexactContentUri(

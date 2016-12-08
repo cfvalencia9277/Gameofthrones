@@ -15,7 +15,7 @@ public interface HouseColumns {
     @AutoIncrement
     public static final String _ID = "_id";
 
-    @DataType(DataType.Type.TEXT)@NotNull @Unique public static final String HOUSE_ID = "House_Id";
-    @DataType(DataType.Type.TEXT)@NotNull public static final String  HOUSE_NAME= "House_Name";
-    @DataType(DataType.Type.TEXT)@NotNull public static final String HOUSE_IMAGE_URL = "House_Image_Url";
+    @DataType(DataType.Type.TEXT)@NotNull @Unique public static final String HOUSE_ID_HOUSE = "House_Id_House";
+    @DataType(DataType.Type.TEXT)@NotNull public static final String  HOUSE_NAME_HOUSE= "House_Name_House";
+    @DataType(DataType.Type.TEXT)@NotNull public static final String HOUSE_IMAGE_URL_HOUSE = "House_Image_Url_House";
 }
