@@ -15,10 +15,18 @@
         android:layout_height="wrap_content"
         android:textAllCaps="true"
         android:textAlignment="center"/>
+    <SearchView
+        android:layout_below="@+id/house_title"
+        android:id="@+id/search_view"
+        android:background="@android:color/transparent"
+        android:searchIcon="@drawable/btn_search"
+        android:closeIcon="@drawable/btn_close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"
-        android:layout_below="@+id/house_title"
+        android:layout_below="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="li.nibble.android.codingtest.MainActivity"

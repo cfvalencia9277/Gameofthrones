@@ -112,7 +112,6 @@ public class HomeActivity extends AppCompatActivity {
                     .applyBatch(GoTProvider.AUTHORITY, batchOperations);
         }
         catch (SQLiteConstraintException e){
-            Log.e("EXIST", "EXIST");
         }
         catch (SQLiteException e){
             Log.e("SQLite", "Error ");
@@ -137,7 +136,6 @@ public class HomeActivity extends AppCompatActivity {
                     .applyBatch(GoTProvider.AUTHORITY, batchOperations);
         }
         catch (SQLiteConstraintException e){
-            Log.e("EXIST", "EXIST");
         }
         catch (SQLiteException e){
             Log.e("SQLite", "Error ");
