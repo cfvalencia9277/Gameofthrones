@@ -1,5 +1,6 @@
 package com.testcode.gameofthrones.fragments;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
+import com.testcode.gameofthrones.FamilyListActivity;
 import com.testcode.gameofthrones.R;
 import com.testcode.gameofthrones.adapters.HouseAdapter;
 import com.testcode.gameofthrones.data.CharacterColumns;
@@ -44,7 +46,16 @@ public class GoTHousesListFragment extends Fragment implements LoaderManager.Loa
         mSearchView = (SearchView) rootView.findViewById(R.id.search_view);
 
         getLoaderManager().initLoader(HOUSE_LOADER,null,this);
-        houseAdapter = new HouseAdapter(getContext());
+        houseAdapter = new HouseAdapter(getContext(), new HouseAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(String houseid, String name) {
+                Intent intent = new Intent(getActivity(), FamilyListActivity.class);
+                intent.putExtra("House_Id", houseid);
+                intent.putExtra("House_Name", name);
+                getActivity().startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.nothing);
+            }
+        });
 
 
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));

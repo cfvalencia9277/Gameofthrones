@@ -1,7 +1,6 @@
 package com.testcode.gameofthrones.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
-import com.testcode.gameofthrones.FamilyListActivity;
 import com.testcode.gameofthrones.R;
 import com.testcode.gameofthrones.data.HouseColumns;
 import com.testcode.gameofthrones.utils.RecyclerViewCursorAdapter;
@@ -22,10 +20,16 @@ import com.testcode.gameofthrones.utils.RecyclerViewCursorAdapter;
 
 public class HouseAdapter extends RecyclerViewCursorAdapter<HouseAdapter.GotHousesViewHolder> {
     Context mcontext;
+    private final OnItemClickListener mlistener;
 
-    public HouseAdapter(Context context) {
+    public HouseAdapter(Context context, OnItemClickListener listener) {
         super(null);
         mcontext = context;
+        mlistener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(String houseid,String name);
     }
 
     @Override
@@ -61,11 +65,7 @@ public class HouseAdapter extends RecyclerViewCursorAdapter<HouseAdapter.GotHous
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("HOUSE ID",houseId);
-                Intent intent = new Intent(mcontext, FamilyListActivity.class);
-                intent.putExtra("House_Id", houseId);
-                intent.putExtra("House_Name", name);
-                mcontext.startActivity(intent);
+                mlistener.onItemClick(houseId,name);
             }
         });
     }

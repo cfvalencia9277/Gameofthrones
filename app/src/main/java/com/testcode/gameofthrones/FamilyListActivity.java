@@ -1,5 +1,6 @@
 package com.testcode.gameofthrones;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -44,7 +45,17 @@ public class FamilyListActivity extends AppCompatActivity   implements LoaderMan
         tv.setText("CHARACTERS OF:  "+houseName);
 
         getSupportLoaderManager().initLoader(CHARACTER_HOUSE_LOADER,null,this);
-        charAdapter = new CharacterAdapter(this);
+        charAdapter = new CharacterAdapter(this, new CharacterAdapter.OnCharacterClickListener() {
+            @Override
+            public void onCharacterClick(String description, String name, String imgpath) {
+                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                intent.putExtra("description", description);
+                intent.putExtra("name", name);
+                intent.putExtra("imageUrl", imgpath);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.nothing);
+            }
+        });
 
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setHasFixedSize(true);
@@ -100,5 +111,11 @@ public class FamilyListActivity extends AppCompatActivity   implements LoaderMan
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         charAdapter.swapCursor(null);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.nothing, R.anim.slide_out_to_bottom);
     }
 }

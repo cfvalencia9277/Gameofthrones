@@ -147,4 +147,10 @@ public class HomeActivity extends AppCompatActivity {
             Log.e("EXCEPTION", "GENERAL");
         }
     }
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.nothing, R.anim.slide_out_to_bottom);
+    }
+
 }

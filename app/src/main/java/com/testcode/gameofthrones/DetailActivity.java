@@ -1,25 +1,18 @@
 package com.testcode.gameofthrones;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-
-import java.io.IOException;
-import java.net.URL;
 
 /**
  * Created by Fabian on 07/12/2016.
  */
 
 public class DetailActivity  extends AppCompatActivity {
-
 
     private static final String TAG = "DetailActivity";
 
@@ -46,5 +39,22 @@ public class DetailActivity  extends AppCompatActivity {
         tvn.setText(n);
         tvd.setText(d);
         Glide.with(this).load(i).asBitmap().into(ivp);
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.nothing, R.anim.slide_out_to_bottom);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                overridePendingTransition(R.anim.nothing, R.anim.slide_out_to_bottom);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

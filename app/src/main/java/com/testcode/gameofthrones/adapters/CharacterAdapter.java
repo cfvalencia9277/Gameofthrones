@@ -23,9 +23,16 @@ public class CharacterAdapter extends RecyclerViewCursorAdapter<CharacterAdapter
 
 
     Context mcontext;
-    public CharacterAdapter(Context context) {
+    private final OnCharacterClickListener mlistener;
+
+    public CharacterAdapter(Context context,OnCharacterClickListener listener) {
         super(null);
         this.mcontext = context;
+        this.mlistener = listener;
+    }
+
+    public interface OnCharacterClickListener {
+        void onCharacterClick(String description,String name,String imgpath);
     }
 
     @Override
@@ -47,11 +54,7 @@ public class CharacterAdapter extends RecyclerViewCursorAdapter<CharacterAdapter
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mcontext, DetailActivity.class);
-                intent.putExtra("description", descrip);
-                intent.putExtra("name", name);
-                intent.putExtra("imageUrl", imgpath);
-                mcontext.startActivity(intent);
+                mlistener.onCharacterClick(descrip,name,imgpath);
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.testcode.gameofthrones.fragments;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
+import com.testcode.gameofthrones.DetailActivity;
 import com.testcode.gameofthrones.R;
 import com.testcode.gameofthrones.adapters.CharacterAdapter;
 import com.testcode.gameofthrones.data.CharacterColumns;
@@ -47,7 +49,17 @@ public class GoTListFragment extends Fragment implements LoaderManager.LoaderCal
         mSearchView = (SearchView) rootView.findViewById(R.id.search_view);
 
         getLoaderManager().initLoader(CHARACTER_LOADER,null,this);
-        charAdapter = new CharacterAdapter(getContext());
+        charAdapter = new CharacterAdapter(getContext(), new CharacterAdapter.OnCharacterClickListener() {
+            @Override
+            public void onCharacterClick(String description, String name, String imgpath) {
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra("description", description);
+                intent.putExtra("name", name);
+                intent.putExtra("imageUrl", imgpath);
+                getActivity().startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.nothing);
+            }
+        });
 
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setHasFixedSize(true);
