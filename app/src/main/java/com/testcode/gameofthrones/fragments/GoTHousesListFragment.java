@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.testcode.gameofthrones.FamilyListActivity;
 import com.testcode.gameofthrones.R;
@@ -42,9 +43,11 @@ public class GoTHousesListFragment extends Fragment implements LoaderManager.Loa
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_list, container, false);
+        View rootView = inflater.inflate(R.layout.activity_house_list, container, false);
+        TextView tv = (TextView) rootView.findViewById(R.id.house_title);
+        tv.setVisibility(View.GONE);
         pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.pb);
-        rv = (RecyclerView) rootView.findViewById(R.id.rv);
+        rv = (RecyclerView) rootView.findViewById(R.id.rv_houses);
         mSearchView = (SearchView) rootView.findViewById(R.id.search_view);
 
         getLoaderManager().initLoader(HOUSE_LOADER,null,this);

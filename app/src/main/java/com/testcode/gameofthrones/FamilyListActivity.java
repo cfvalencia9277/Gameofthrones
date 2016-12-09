@@ -36,9 +36,10 @@ public class FamilyListActivity extends AppCompatActivity   implements LoaderMan
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_house_list);
-        rv = (RecyclerView) findViewById(R.id.rv);
+        rv = (RecyclerView) findViewById(R.id.rv_houses);
         pb = (ContentLoadingProgressBar) findViewById(R.id.pb);
         TextView tv = (TextView)findViewById(R.id.house_title);
+        tv.setVisibility(View.VISIBLE);
         mSearchView = (SearchView) findViewById(R.id.search_view);
 
         houseid = getIntent().getStringExtra("House_Id");

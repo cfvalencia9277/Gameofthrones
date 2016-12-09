@@ -10,13 +10,14 @@ tools:context="li.nibble.android.codingtest.MainActivity">
 <SearchView
     android:id="@+id/search_view"
     android:background="@android:color/transparent"
-    android:searchIcon="@mipmap/ic_launcher"
-    android:closeIcon="@mipmap/ic_launcher"
+    android:searchIcon="@drawable/btn_search"
+    android:closeIcon="@drawable/btn_close"
+    android:textColor="@color/textColor"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
 
 <android.support.v7.widget.RecyclerView
-    android:id="@+id/rv"
+    android:id="@+id/rv_characters"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_below="@id/search_view"

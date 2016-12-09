@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.testcode.gameofthrones.DetailActivity;
 import com.testcode.gameofthrones.R;
@@ -38,6 +39,7 @@ public class GoTListFragment extends Fragment implements LoaderManager.LoaderCal
     ContentLoadingProgressBar pb;
     private SearchView mSearchView;
     RecyclerView rv;
+    TextView tv;
 
     public GoTListFragment() {
     }
@@ -46,7 +48,7 @@ public class GoTListFragment extends Fragment implements LoaderManager.LoaderCal
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
         pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.pb);
-        rv = (RecyclerView) rootView.findViewById(R.id.rv);
+        rv = (RecyclerView) rootView.findViewById(R.id.rv_characters);
         mSearchView = (SearchView) rootView.findViewById(R.id.search_view);
 
         getLoaderManager().initLoader(CHARACTER_LOADER,null,this);
