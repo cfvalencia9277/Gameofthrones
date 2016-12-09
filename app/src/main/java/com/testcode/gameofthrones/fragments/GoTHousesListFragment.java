@@ -1,5 +1,6 @@
 package com.testcode.gameofthrones.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 
 import com.testcode.gameofthrones.FamilyListActivity;
@@ -63,7 +65,6 @@ public class GoTHousesListFragment extends Fragment implements LoaderManager.Loa
         rv.setAdapter(houseAdapter);
 
         setupSearchView();
-
         return rootView;
     }
     private void setupSearchView() {

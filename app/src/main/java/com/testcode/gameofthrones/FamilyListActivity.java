@@ -1,5 +1,6 @@
 package com.testcode.gameofthrones;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -62,7 +64,6 @@ public class FamilyListActivity extends AppCompatActivity   implements LoaderMan
         rv.setAdapter(charAdapter);
 
         setupSearchView();
-
     }
 
     private void setupSearchView() {

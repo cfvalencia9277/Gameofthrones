@@ -11,7 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-
 import com.facebook.stetho.Stetho;
 import com.testcode.gameofthrones.adapters.SelectionsPagerAdapter;
 import com.testcode.gameofthrones.data.CharacterColumns;
@@ -21,10 +20,8 @@ import com.testcode.gameofthrones.models.GoTCharacter;
 import com.testcode.gameofthrones.models.GoTHouse;
 import com.testcode.gameofthrones.rest.ApiClient;
 import com.testcode.gameofthrones.rest.ApiInterface;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -85,7 +82,6 @@ public class HomeActivity extends AppCompatActivity {
                     addCharactertodb(response.body().get(i));
                     GoTHouse house = new GoTHouse(response.body().get(i).getHu(),response.body().get(i).getHn(),response.body().get(i).getHi());
                     addHousetodb(house);
-                    //feedItemList.add(response.body().getResult().get(1));
                 }
             }
 

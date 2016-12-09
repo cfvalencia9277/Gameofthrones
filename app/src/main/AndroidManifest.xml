@@ -14,10 +14,12 @@
             android:parentActivityName=".HomeActivity">
         </activity>
         <activity
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".FamilyListActivity"
             >
         </activity>
         <activity
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme">

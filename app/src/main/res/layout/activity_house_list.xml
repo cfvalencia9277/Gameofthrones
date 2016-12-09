@@ -19,8 +19,8 @@
         android:layout_below="@+id/house_title"
         android:id="@+id/search_view"
         android:background="@android:color/transparent"
-        android:searchIcon="@drawable/btn_search"
-        android:closeIcon="@drawable/btn_close"
+        android:searchIcon="@mipmap/ic_launcher"
+        android:closeIcon="@mipmap/ic_launcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

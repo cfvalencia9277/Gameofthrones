@@ -3,6 +3,7 @@ package com.testcode.gameofthrones.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 
 import com.testcode.gameofthrones.fragments.GoTHousesListFragment;
 import com.testcode.gameofthrones.fragments.GoTListFragment;
@@ -12,8 +13,10 @@ import com.testcode.gameofthrones.fragments.GoTListFragment;
  */
 
 public class SelectionsPagerAdapter extends FragmentPagerAdapter {
+    FragmentManager mfm;
     public SelectionsPagerAdapter(FragmentManager fm) {
         super(fm);
+        this.mfm = fm;
     }
 
     @Override

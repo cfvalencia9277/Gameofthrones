@@ -1,5 +1,6 @@
 package com.testcode.gameofthrones.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 
 import com.testcode.gameofthrones.DetailActivity;
@@ -43,7 +45,6 @@ public class GoTListFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
-
         pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.pb);
         rv = (RecyclerView) rootView.findViewById(R.id.rv);
         mSearchView = (SearchView) rootView.findViewById(R.id.search_view);
@@ -73,6 +74,7 @@ public class GoTListFragment extends Fragment implements LoaderManager.LoaderCal
         mSearchView.setIconifiedByDefault(false);
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setSubmitButtonEnabled(false);
+
     }
     @Override
     public boolean onQueryTextSubmit(String query) {
