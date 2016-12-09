@@ -1,14 +1,20 @@
 package com.testcode.gameofthrones;
 
 import android.app.Activity;
+import android.os.SystemClock;
+import android.support.design.widget.TabLayout;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import android.view.View;
 
 
+import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,10 +23,15 @@ import java.util.Collection;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
+import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
+import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.Matchers.allOf;
@@ -62,10 +73,33 @@ public class TestEspresso {
     }
     @Test
     public void TestHousesRecyclerviews() {
+
+        onView(withId(R.id.container)).perform(withCustomConstraints(swipeLeft(), isDisplayingAtLeast(85)));
+        SystemClock.sleep(800); // Wait a little until the content is loaded
+        onView(allOf(withId(R.id.rv_houses))).check(matches(isDisplayed()));
         onView(allOf(withId(R.id.rv_houses))).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
         Activity activity = getActivityInstance();
         boolean b = (activity instanceof  FamilyListActivity);
         assertTrue(b);
+    }
+
+    public static ViewAction withCustomConstraints(final ViewAction action, final Matcher<View> constraints) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return constraints;
+            }
+
+            @Override
+            public String getDescription() {
+                return action.getDescription();
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                action.perform(uiController, view);
+            }
+        };
     }
 
     public Activity getActivityInstance() {
@@ -80,7 +114,6 @@ public class TestEspresso {
                 }
             }
         });
-
         return activity[0];
     }
 

@@ -13,10 +13,8 @@ import com.testcode.gameofthrones.fragments.GoTListFragment;
  */
 
 public class SelectionsPagerAdapter extends FragmentPagerAdapter {
-    FragmentManager mfm;
     public SelectionsPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.mfm = fm;
     }
 
     @Override
