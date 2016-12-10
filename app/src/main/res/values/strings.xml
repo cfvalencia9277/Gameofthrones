@@ -3,7 +3,5 @@
     <string name="title_activity_home" translatable="true">Game of Thrones</string>
     <string name="action_settings" translatable="true">Settings</string>
     <string name="no_image_name" translatable="true">NO NAME OR IMAGE FOR HOUSE</string>
-    <string name="char_list_text" translatable="true">CHARACTERS OF:  </string>
-
-
+    <string name="char_list_text" translatable="true">NO HOUSE NAME </string>
 </resources>

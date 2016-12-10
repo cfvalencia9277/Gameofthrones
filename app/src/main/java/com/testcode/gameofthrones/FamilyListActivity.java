@@ -11,6 +11,7 @@ import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
@@ -45,7 +46,13 @@ public class FamilyListActivity extends AppCompatActivity   implements LoaderMan
         houseid = getIntent().getStringExtra("House_Id");
         houseName = getIntent().getStringExtra("House_Name");
 
-        tv.setText(R.string.char_list_text+houseName);
+        if(houseName.equals("")){
+            tv.setText(R.string.char_list_text);
+        }
+        else{
+            tv.setText(houseName);
+        }
+
 
         getSupportLoaderManager().initLoader(CHARACTER_HOUSE_LOADER,null,this);
         charAdapter = new CharacterAdapter(this, new CharacterAdapter.OnCharacterClickListener() {
