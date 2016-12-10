@@ -1,6 +1,6 @@
 package com.testcode.gameofthrones;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,12 +11,9 @@ import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 import android.widget.TextView;
-
 import com.testcode.gameofthrones.adapters.CharacterAdapter;
 import com.testcode.gameofthrones.data.CharacterColumns;
 import com.testcode.gameofthrones.data.GoTProvider;
@@ -33,28 +30,46 @@ public class FamilyListActivity extends AppCompatActivity   implements LoaderMan
     String houseName;
     private SearchView mSearchView;
     RecyclerView rv;
+    TextView tv;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_house_list);
+
         rv = (RecyclerView) findViewById(R.id.rv_houses);
         pb = (ContentLoadingProgressBar) findViewById(R.id.pb);
-        TextView tv = (TextView)findViewById(R.id.house_title);
-        tv.setVisibility(View.VISIBLE);
+        tv = (TextView)findViewById(R.id.house_title);
         mSearchView = (SearchView) findViewById(R.id.search_view);
+
+        tv.setVisibility(View.VISIBLE);
 
         houseid = getIntent().getStringExtra("House_Id");
         houseName = getIntent().getStringExtra("House_Name");
 
+        setText();
+
+        getSupportLoaderManager().initLoader(CHARACTER_HOUSE_LOADER,null,this);
+
+        setCharAdapter();
+
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setHasFixedSize(true);
+        rv.setAdapter(charAdapter);
+
+        setupSearchView();
+    }
+
+    private void setText(){
         if(houseName.equals("")){
             tv.setText(R.string.char_list_text);
         }
         else{
             tv.setText(houseName);
         }
+    }
 
-
-        getSupportLoaderManager().initLoader(CHARACTER_HOUSE_LOADER,null,this);
+    public void setCharAdapter(){
         charAdapter = new CharacterAdapter(this, new CharacterAdapter.OnCharacterClickListener() {
             @Override
             public void onCharacterClick(String description, String name, String imgpath) {
@@ -66,12 +81,6 @@ public class FamilyListActivity extends AppCompatActivity   implements LoaderMan
                 overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.nothing);
             }
         });
-
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setHasFixedSize(true);
-        rv.setAdapter(charAdapter);
-
-        setupSearchView();
     }
 
     private void setupSearchView() {
@@ -84,11 +93,6 @@ public class FamilyListActivity extends AppCompatActivity   implements LoaderMan
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
-    /**
-     *  callback method called when text in searchview is changing.
-     * @param newText text currently on searchview.
-     * @return  a filtered list of plants.
-     */
 
     @Override
     public boolean onQueryTextChange(String newText) {
@@ -104,10 +108,20 @@ public class FamilyListActivity extends AppCompatActivity   implements LoaderMan
         CursorLoader cl = null;
         if(args != null){
             String name = args.getString("Name","");
-            if(name.equals("")){cl = new CursorLoader(this, GoTProvider.Characters.CONTENT_URI,null, CharacterColumns.HOUSE_ID + "= ?",new String[]{houseid},null);}
-            else{cl = new CursorLoader(this,GoTProvider.Characters.CONTENT_URI,null,CharacterColumns.NAME+" like '%"+name+"%' and "+CharacterColumns.HOUSE_ID+" like '%"+houseid+"%'" ,null,null);}
+            if(name.equals("")){
+                cl = new CursorLoader(this, GoTProvider.Characters.CONTENT_URI,null,
+                        CharacterColumns.HOUSE_ID + "= ?",new String[]{houseid},null);
+            }
+            else{
+                cl = new CursorLoader(this,GoTProvider.Characters.CONTENT_URI,null,
+                        CharacterColumns.NAME+" like '%"+name+"%' and "+
+                                CharacterColumns.HOUSE_ID+" like '%"+houseid+"%'" ,null,null);
+            }
         }
-        else{cl= new CursorLoader(this, GoTProvider.Characters.CONTENT_URI,null, CharacterColumns.HOUSE_ID + "= ?",new String[]{houseid},null);}
+        else{
+            cl= new CursorLoader(this, GoTProvider.Characters.CONTENT_URI,null,
+                    CharacterColumns.HOUSE_ID + "= ?",new String[]{houseid},null);
+        }
         return cl;
     }
 

@@ -73,4 +73,13 @@ public class GoTCharacter {
     public void setD(final String s) {
         this.d = s;
     }
+
+    public GoTCharacter(String n,String iu,String d,String hu,String hn,String hi){
+        this.n = n;
+        this.iu = iu;
+        this.d = d;
+        this.hu = hu;
+        this.hn = hn;
+        this.hi = hi;
+    }
 }

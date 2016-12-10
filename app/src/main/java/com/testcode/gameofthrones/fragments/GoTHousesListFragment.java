@@ -1,6 +1,5 @@
 package com.testcode.gameofthrones.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,18 +10,14 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.SearchView;
 import android.widget.TextView;
-
 import com.testcode.gameofthrones.FamilyListActivity;
 import com.testcode.gameofthrones.R;
 import com.testcode.gameofthrones.adapters.HouseAdapter;
-import com.testcode.gameofthrones.data.CharacterColumns;
 import com.testcode.gameofthrones.data.GoTProvider;
 import com.testcode.gameofthrones.data.HouseColumns;
 
@@ -45,11 +40,25 @@ public class GoTHousesListFragment extends Fragment implements LoaderManager.Loa
         View rootView = inflater.inflate(R.layout.activity_house_list, container, false);
         TextView tv = (TextView) rootView.findViewById(R.id.house_title);
         tv.setVisibility(View.GONE);
+
         pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.pb);
         rv = (RecyclerView) rootView.findViewById(R.id.rv_houses);
         mSearchView = (SearchView) rootView.findViewById(R.id.search_view);
 
         getLoaderManager().initLoader(HOUSE_LOADER,null,this);
+
+        setHouseAdapter();
+
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv.setHasFixedSize(true);
+        rv.setAdapter(houseAdapter);
+
+        setupSearchView();
+
+        return rootView;
+    }
+
+    public void setHouseAdapter(){
         houseAdapter = new HouseAdapter(getContext(), new HouseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(String houseid, String name) {
@@ -60,14 +69,6 @@ public class GoTHousesListFragment extends Fragment implements LoaderManager.Loa
                 getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.nothing);
             }
         });
-
-
-        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rv.setHasFixedSize(true);
-        rv.setAdapter(houseAdapter);
-
-        setupSearchView();
-        return rootView;
     }
     private void setupSearchView() {
         mSearchView.setIconifiedByDefault(false);

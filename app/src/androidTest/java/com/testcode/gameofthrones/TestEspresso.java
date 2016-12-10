@@ -24,20 +24,15 @@ import java.util.Collection;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
-import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
-import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayingAtLeast;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.runner.lifecycle.Stage.RESUMED;
 import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
-
-
 /**
  * Created by Fabian on 09/12/2016.
  */
@@ -52,6 +47,7 @@ public class TestEspresso {
     @Test
     public void checktoolbarAndContainer() {
         onView(withId(R.id.toolbar)).check(matches(isDisplayed()));
+        onView(withId(R.id.tabs)).check(matches(isDisplayed()));
         onView(withId(R.id.container)).check(matches(isDisplayed()));
     }
 
@@ -71,9 +67,9 @@ public class TestEspresso {
         boolean b = (activity instanceof  DetailActivity);
         assertTrue(b);
     }
+
     @Test
     public void TestHousesRecyclerviews() {
-
         onView(withId(R.id.container)).perform(withCustomConstraints(swipeLeft(), isDisplayingAtLeast(85)));
         SystemClock.sleep(800); // Wait a little until the content is loaded
         onView(allOf(withId(R.id.rv_houses))).check(matches(isDisplayed()));
