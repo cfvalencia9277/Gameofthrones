@@ -3,6 +3,7 @@ package com.testcode.gameofthrones;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -41,6 +42,9 @@ public class FamilyListActivity extends AppCompatActivity   implements LoaderMan
         pb = (ContentLoadingProgressBar) findViewById(R.id.pb);
         tv = (TextView)findViewById(R.id.house_title);
         mSearchView = (SearchView) findViewById(R.id.search_view);
+        int id = mSearchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        TextView textView = (TextView) mSearchView.findViewById(id);
+        textView.setTextColor(Color.WHITE);
 
         tv.setVisibility(View.VISIBLE);
 
@@ -78,7 +82,7 @@ public class FamilyListActivity extends AppCompatActivity   implements LoaderMan
                 intent.putExtra("name", name);
                 intent.putExtra("imageUrl", imgpath);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.nothing);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.nothing);
             }
         });
     }

@@ -41,7 +41,7 @@ public class DetailActivity  extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.nothing, R.anim.slide_out_to_bottom);
+        overridePendingTransition(R.anim.nothing, R.anim.slide_out_from_left);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class DetailActivity  extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
-                overridePendingTransition(R.anim.nothing, R.anim.slide_out_to_bottom);
+                overridePendingTransition(R.anim.nothing, R.anim.slide_out_from_left);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

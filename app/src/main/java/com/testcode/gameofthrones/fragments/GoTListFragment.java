@@ -2,6 +2,7 @@ package com.testcode.gameofthrones.fragments;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -14,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
+
 import com.testcode.gameofthrones.DetailActivity;
 import com.testcode.gameofthrones.R;
 import com.testcode.gameofthrones.adapters.CharacterAdapter;
@@ -41,6 +44,9 @@ public class GoTListFragment extends Fragment implements LoaderManager.LoaderCal
         pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.pb);
         rv = (RecyclerView) rootView.findViewById(R.id.rv_characters);
         mSearchView = (SearchView) rootView.findViewById(R.id.search_view);
+        int id = mSearchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        TextView textView = (TextView) mSearchView.findViewById(id);
+        textView.setTextColor(Color.WHITE);
 
         getLoaderManager().initLoader(CHARACTER_LOADER,null,this);
 
@@ -64,7 +70,7 @@ public class GoTListFragment extends Fragment implements LoaderManager.LoaderCal
                 intent.putExtra("name", name);
                 intent.putExtra("imageUrl", imgpath);
                 getActivity().startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.nothing);
+                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.nothing);
             }
         });
     }

@@ -48,7 +48,8 @@ public class CharacterAdapter extends RecyclerViewCursorAdapter<CharacterAdapter
         int despath = cursor.getColumnIndex(CharacterColumns.DESCRIPTION);
         final String descrip = cursor.getString(despath);
         holder.tvn.setText(name);
-        Glide.with(mcontext).load(imgpath).error(R.drawable.iron_throne).into(holder.imp);
+        Glide.with(mcontext).load(imgpath).error(R.drawable.iron_throne)
+                .placeholder(R.drawable.got_placeholder).into(holder.imp);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

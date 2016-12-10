@@ -2,6 +2,7 @@ package com.testcode.gameofthrones.fragments;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -44,6 +45,9 @@ public class GoTHousesListFragment extends Fragment implements LoaderManager.Loa
         pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.pb);
         rv = (RecyclerView) rootView.findViewById(R.id.rv_houses);
         mSearchView = (SearchView) rootView.findViewById(R.id.search_view);
+        int id = mSearchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        TextView textView = (TextView) mSearchView.findViewById(id);
+        textView.setTextColor(Color.WHITE);
 
         getLoaderManager().initLoader(HOUSE_LOADER,null,this);
 
@@ -79,11 +83,7 @@ public class GoTHousesListFragment extends Fragment implements LoaderManager.Loa
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
-    /**
-     *  callback method called when text in searchview is changing.
-     * @param newText text currently on searchview.
-     * @return  a filtered list of plants.
-     */
+
     @Override
     public boolean onQueryTextChange(String newText) {
         Bundle args = new Bundle();
