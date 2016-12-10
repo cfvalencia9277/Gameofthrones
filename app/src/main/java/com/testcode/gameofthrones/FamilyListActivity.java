@@ -45,7 +45,7 @@ public class FamilyListActivity extends AppCompatActivity   implements LoaderMan
         houseid = getIntent().getStringExtra("House_Id");
         houseName = getIntent().getStringExtra("House_Name");
 
-        tv.setText("CHARACTERS OF:  "+houseName);
+        tv.setText(R.string.char_list_text+houseName);
 
         getSupportLoaderManager().initLoader(CHARACTER_HOUSE_LOADER,null,this);
         charAdapter = new CharacterAdapter(this, new CharacterAdapter.OnCharacterClickListener() {

@@ -78,7 +78,6 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<GoTCharacter>> call, Response<List<GoTCharacter>> response) {
                 for(int i=0; i < response.body().size(); i++ ){
-                    // getting all response from server. need to save them to DB
                     addCharactertodb(response.body().get(i));
                     GoTHouse house = new GoTHouse(response.body().get(i).getHu(),response.body().get(i).getHn(),response.body().get(i).getHi());
                     addHousetodb(house);

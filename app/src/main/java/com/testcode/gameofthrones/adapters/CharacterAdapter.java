@@ -1,7 +1,6 @@
 package com.testcode.gameofthrones.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
-import com.testcode.gameofthrones.DetailActivity;
 import com.testcode.gameofthrones.R;
 import com.testcode.gameofthrones.data.CharacterColumns;
 import com.testcode.gameofthrones.utils.RecyclerViewCursorAdapter;
@@ -50,7 +48,7 @@ public class CharacterAdapter extends RecyclerViewCursorAdapter<CharacterAdapter
         int despath = cursor.getColumnIndex(CharacterColumns.DESCRIPTION);
         final String descrip = cursor.getString(despath);
         holder.tvn.setText(name);
-        Glide.with(mcontext).load(imgpath).asBitmap().into(holder.imp);
+        Glide.with(mcontext).load(imgpath).error(R.drawable.iron_throne).into(holder.imp);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +59,6 @@ public class CharacterAdapter extends RecyclerViewCursorAdapter<CharacterAdapter
 
     class GotCharacterViewHolder extends RecyclerView.ViewHolder {
 
-        private static final String TAG = "GotCharacterViewHolder";
         ImageView imp;
         TextView tvn;
 

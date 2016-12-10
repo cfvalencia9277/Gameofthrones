@@ -14,8 +14,6 @@ import com.bumptech.glide.Glide;
 
 public class DetailActivity  extends AppCompatActivity {
 
-    private static final String TAG = "DetailActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +36,7 @@ public class DetailActivity  extends AppCompatActivity {
 
         tvn.setText(n);
         tvd.setText(d);
-        Glide.with(this).load(i).asBitmap().into(ivp);
+        Glide.with(this).load(i).error(R.drawable.iron_throne).into(ivp);
     }
     @Override
     public void onBackPressed() {

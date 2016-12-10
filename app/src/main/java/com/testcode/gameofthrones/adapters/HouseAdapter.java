@@ -3,7 +3,6 @@ package com.testcode.gameofthrones.adapters;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,18 +48,18 @@ public class HouseAdapter extends RecyclerViewCursorAdapter<HouseAdapter.GotHous
         if(imgpath.equals("")){
             if(name.equals("")){
                 holder.houseName.setVisibility(View.VISIBLE);
-                holder.houseName.setText("NO NAME OR IMG FOR HOUSE");
-                Glide.with(mcontext).load(R.mipmap.ic_launcher).asBitmap().into(holder.imp);
+                holder.houseName.setText(R.string.no_image_name);
+                Glide.with(mcontext).load(R.drawable.iron_throne).asBitmap().into(holder.imp);
             }
             else{
                 holder.houseName.setVisibility(View.VISIBLE);
                 holder.houseName.setText(name);
-                Glide.with(mcontext).load(R.mipmap.ic_launcher).asBitmap().into(holder.imp);
+                Glide.with(mcontext).load(R.drawable.iron_throne).asBitmap().into(holder.imp);
             }
         }
         else {
             holder.houseName.setVisibility(View.GONE);
-            Glide.with(mcontext).load(imgpath).asBitmap().into(holder.imp);
+            Glide.with(mcontext).load(imgpath).error(R.drawable.iron_throne).into(holder.imp);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +71,6 @@ public class HouseAdapter extends RecyclerViewCursorAdapter<HouseAdapter.GotHous
 
     class GotHousesViewHolder extends RecyclerView.ViewHolder {
 
-        private static final String TAG = "GotCharacterViewHolder";
         ImageView imp;
         TextView houseName;
 

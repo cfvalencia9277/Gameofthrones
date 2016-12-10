@@ -31,7 +31,6 @@ import com.testcode.gameofthrones.data.HouseColumns;
  */
 
 public class GoTHousesListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,SearchView.OnQueryTextListener {
-    private static final String TAG = "GoTHousesListFragment";
     private static final int HOUSE_LOADER = 102;
     HouseAdapter houseAdapter;
     ContentLoadingProgressBar pb;
