@@ -1,9 +1,11 @@
 package com.testcode.gameofthrones;
 
 import android.content.ContentProviderOperation;
+import android.content.Context;
 import android.content.OperationApplicationException;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteException;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.design.widget.TabLayout;
@@ -11,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.Toast;
 import com.facebook.stetho.Stetho;
 import com.testcode.gameofthrones.adapters.SelectionsPagerAdapter;
 import com.testcode.gameofthrones.data.CharacterColumns;
@@ -46,6 +49,11 @@ public class HomeActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         setVp((ViewPager) findViewById(R.id.container));
+
+        if(!isNetworkConnected()){
+            Toast.makeText(this, getString(R.string.no_internet),
+                    Toast.LENGTH_LONG).show();
+        }
 
         Stetho.initializeWithDefaults(this);
         setSupportActionBar(toolbar);
@@ -162,6 +170,11 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
         return succes;
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
     }
 
     @Override
