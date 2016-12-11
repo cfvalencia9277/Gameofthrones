@@ -2,7 +2,6 @@ package com.testcode.gameofthrones;
 
 import android.app.Activity;
 import android.os.SystemClock;
-import android.support.design.widget.TabLayout;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;

@@ -25,7 +25,7 @@ This app implements some popular libraries to facilitate features on android nat
 - [SimonVt Schematic](https://github.com/SimonVT/schematic).
 - [Facebook Stetho](http://facebook.github.io/stetho/).
 - [Square Retrofit](https://square.github.io/retrofit/).
-- [Espresso](https://developer.android.com/reference/android/support/test/espresso/Espresso.html).
+- [Espresso](https://google.github.io/android-testing-support-library/docs/espresso/).
 - [Mockito](http://site.mockito.org/).
 
 
