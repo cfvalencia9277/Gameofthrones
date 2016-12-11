@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.testcode.gameofthrones.models.GoTCharacter;
 
 /**
  * Created by Fabian on 07/12/2016.
@@ -23,20 +24,18 @@ public class DetailActivity  extends AppCompatActivity {
         final TextView tvn = (TextView) findViewById(R.id.tv_name);
         final TextView tvd = (TextView) findViewById(R.id.tv_description);
 
-        final String d = getIntent().getStringExtra("description");
-        final String n = getIntent().getStringExtra("name");
-        final String i = getIntent().getStringExtra("imageUrl");
+        final GoTCharacter character = getIntent().getParcelableExtra("Character");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.t);
-        toolbar.setTitle(n);
+        toolbar.setTitle(character.n);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        tvn.setText(n);
-        tvd.setText(d);
-        Glide.with(this).load(i).error(R.drawable.iron_throne).into(ivp);
+        tvn.setText(character.n);
+        tvd.setText(character.d);
+        Glide.with(this).load(character.iu).error(R.drawable.iron_throne).into(ivp);
     }
     @Override
     public void onBackPressed() {

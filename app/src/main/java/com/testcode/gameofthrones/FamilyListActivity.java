@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.testcode.gameofthrones.adapters.CharacterAdapter;
 import com.testcode.gameofthrones.data.CharacterColumns;
 import com.testcode.gameofthrones.data.GoTProvider;
+import com.testcode.gameofthrones.models.GoTCharacter;
+import com.testcode.gameofthrones.models.GoTHouse;
 
 /**
  * Created by Fabian on 08/12/2016.
@@ -27,8 +29,7 @@ public class FamilyListActivity extends AppCompatActivity   implements LoaderMan
     private static final int CHARACTER_HOUSE_LOADER = 103;
     CharacterAdapter charAdapter;
     ContentLoadingProgressBar pb;
-    String houseid;
-    String houseName;
+    GoTHouse house;
     private SearchView mSearchView;
     RecyclerView rv;
     TextView tv;
@@ -48,8 +49,7 @@ public class FamilyListActivity extends AppCompatActivity   implements LoaderMan
 
         tv.setVisibility(View.VISIBLE);
 
-        houseid = getIntent().getStringExtra("House_Id");
-        houseName = getIntent().getStringExtra("House_Name");
+        house = getIntent().getParcelableExtra("House");
 
         setText();
 
@@ -65,22 +65,20 @@ public class FamilyListActivity extends AppCompatActivity   implements LoaderMan
     }
 
     private void setText(){
-        if(houseName.equals("")){
+        if(house.getN().equals("")){
             tv.setText(R.string.char_list_text);
         }
         else{
-            tv.setText(houseName);
+            tv.setText(house.getN());
         }
     }
 
     public void setCharAdapter(){
         charAdapter = new CharacterAdapter(this, new CharacterAdapter.OnCharacterClickListener() {
             @Override
-            public void onCharacterClick(String description, String name, String imgpath) {
+            public void onCharacterClick(GoTCharacter character) {
                 Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-                intent.putExtra("description", description);
-                intent.putExtra("name", name);
-                intent.putExtra("imageUrl", imgpath);
+                intent.putExtra("Character", character);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.nothing);
             }
@@ -114,17 +112,17 @@ public class FamilyListActivity extends AppCompatActivity   implements LoaderMan
             String name = args.getString("Name","");
             if(name.equals("")){
                 cl = new CursorLoader(this, GoTProvider.Characters.CONTENT_URI,null,
-                        CharacterColumns.HOUSE_ID + "= ?",new String[]{houseid},null);
+                        CharacterColumns.HOUSE_ID + "= ?",new String[]{house.getI()},null);
             }
             else{
                 cl = new CursorLoader(this,GoTProvider.Characters.CONTENT_URI,null,
                         CharacterColumns.NAME+" like '%"+name+"%' and "+
-                                CharacterColumns.HOUSE_ID+" like '%"+houseid+"%'" ,null,null);
+                                CharacterColumns.HOUSE_ID+" like '%"+house.getI()+"%'" ,null,null);
             }
         }
         else{
             cl= new CursorLoader(this, GoTProvider.Characters.CONTENT_URI,null,
-                    CharacterColumns.HOUSE_ID + "= ?",new String[]{houseid},null);
+                    CharacterColumns.HOUSE_ID + "= ?",new String[]{house.getI()},null);
         }
         return cl;
     }

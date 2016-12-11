@@ -22,6 +22,7 @@ import com.testcode.gameofthrones.R;
 import com.testcode.gameofthrones.adapters.CharacterAdapter;
 import com.testcode.gameofthrones.data.CharacterColumns;
 import com.testcode.gameofthrones.data.GoTProvider;
+import com.testcode.gameofthrones.models.GoTCharacter;
 
 /**
  * Created by Fabian on 07/12/2016.
@@ -64,11 +65,9 @@ public class GoTListFragment extends Fragment implements LoaderManager.LoaderCal
     public void setCharAdapter(){
         charAdapter = new CharacterAdapter(getContext(), new CharacterAdapter.OnCharacterClickListener() {
             @Override
-            public void onCharacterClick(String description, String name, String imgpath) {
+            public void onCharacterClick(GoTCharacter character) {
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra("description", description);
-                intent.putExtra("name", name);
-                intent.putExtra("imageUrl", imgpath);
+                intent.putExtra("Character",character);
                 getActivity().startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.nothing);
             }

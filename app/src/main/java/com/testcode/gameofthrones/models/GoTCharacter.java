@@ -1,12 +1,15 @@
 package com.testcode.gameofthrones.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by Fabian on 07/12/2016.
  */
 
-public class GoTCharacter {
+public class GoTCharacter implements Parcelable {
     @SerializedName("name")
     public
     String n;
@@ -25,6 +28,27 @@ public class GoTCharacter {
     @SerializedName("houseId")
     public
     String hi;
+
+    protected GoTCharacter(Parcel in) {
+        n = in.readString();
+        iu = in.readString();
+        d = in.readString();
+        hu = in.readString();
+        hn = in.readString();
+        hi = in.readString();
+    }
+
+    public static final Creator<GoTCharacter> CREATOR = new Creator<GoTCharacter>() {
+        @Override
+        public GoTCharacter createFromParcel(Parcel in) {
+            return new GoTCharacter(in);
+        }
+
+        @Override
+        public GoTCharacter[] newArray(int size) {
+            return new GoTCharacter[size];
+        }
+    };
 
     public String getHu() {
         return hu;
@@ -81,5 +105,20 @@ public class GoTCharacter {
         this.hu = hu;
         this.hn = hn;
         this.hi = hi;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(n);
+        dest.writeString(iu);
+        dest.writeString(d);
+        dest.writeString(hu);
+        dest.writeString(hn);
+        dest.writeString(hi);
     }
 }

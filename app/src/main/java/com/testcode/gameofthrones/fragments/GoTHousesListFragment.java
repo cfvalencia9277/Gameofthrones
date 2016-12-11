@@ -21,6 +21,7 @@ import com.testcode.gameofthrones.R;
 import com.testcode.gameofthrones.adapters.HouseAdapter;
 import com.testcode.gameofthrones.data.GoTProvider;
 import com.testcode.gameofthrones.data.HouseColumns;
+import com.testcode.gameofthrones.models.GoTHouse;
 
 /**
  * Created by Fabian on 07/12/2016.
@@ -65,10 +66,9 @@ public class GoTHousesListFragment extends Fragment implements LoaderManager.Loa
     public void setHouseAdapter(){
         houseAdapter = new HouseAdapter(getContext(), new HouseAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(String houseid, String name) {
+            public void onItemClick(GoTHouse house) {
                 Intent intent = new Intent(getActivity(), FamilyListActivity.class);
-                intent.putExtra("House_Id", houseid);
-                intent.putExtra("House_Name", name);
+                intent.putExtra("House", house);
                 getActivity().startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.nothing);
             }

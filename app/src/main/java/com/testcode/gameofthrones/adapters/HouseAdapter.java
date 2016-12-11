@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.testcode.gameofthrones.R;
 import com.testcode.gameofthrones.data.HouseColumns;
+import com.testcode.gameofthrones.models.GoTHouse;
 import com.testcode.gameofthrones.utils.RecyclerViewCursorAdapter;
 
 /**
@@ -28,7 +29,7 @@ public class HouseAdapter extends RecyclerViewCursorAdapter<HouseAdapter.GotHous
     }
 
     public interface OnItemClickListener {
-        void onItemClick(String houseid,String name);
+        void onItemClick(GoTHouse house);
     }
 
     @Override
@@ -45,6 +46,7 @@ public class HouseAdapter extends RecyclerViewCursorAdapter<HouseAdapter.GotHous
         final String imgpath = cursor.getString(impathIndex);
         int nameIndex = cursor.getColumnIndex(HouseColumns.HOUSE_NAME_HOUSE);
         final String name = cursor.getString(nameIndex);
+        final GoTHouse house = new GoTHouse(null,name,houseId);
         if(imgpath.equals("")){
             if(name.equals("")){
                 holder.houseName.setVisibility(View.VISIBLE);
@@ -65,7 +67,7 @@ public class HouseAdapter extends RecyclerViewCursorAdapter<HouseAdapter.GotHous
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mlistener.onItemClick(houseId,name);
+                mlistener.onItemClick(house);
             }
         });
     }

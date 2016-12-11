@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.testcode.gameofthrones.R;
 import com.testcode.gameofthrones.data.CharacterColumns;
+import com.testcode.gameofthrones.models.GoTCharacter;
 import com.testcode.gameofthrones.utils.RecyclerViewCursorAdapter;
 
 /**
@@ -30,7 +31,7 @@ public class CharacterAdapter extends RecyclerViewCursorAdapter<CharacterAdapter
     }
 
     public interface OnCharacterClickListener {
-        void onCharacterClick(String description,String name,String imgpath);
+        void onCharacterClick(GoTCharacter character);
     }
 
     @Override
@@ -47,13 +48,14 @@ public class CharacterAdapter extends RecyclerViewCursorAdapter<CharacterAdapter
         final String imgpath = cursor.getString(pathIndex);
         int despath = cursor.getColumnIndex(CharacterColumns.DESCRIPTION);
         final String descrip = cursor.getString(despath);
+        final GoTCharacter character = new GoTCharacter(name,imgpath,descrip,null,null,null);
         holder.tvn.setText(name);
         Glide.with(mcontext).load(imgpath).error(R.drawable.iron_throne)
                 .placeholder(R.drawable.got_placeholder).into(holder.imp);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mlistener.onCharacterClick(descrip,name,imgpath);
+                mlistener.onCharacterClick(character);
             }
         });
     }
