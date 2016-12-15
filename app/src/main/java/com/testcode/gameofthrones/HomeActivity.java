@@ -5,8 +5,12 @@ import android.content.Context;
 import android.content.OperationApplicationException;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteException;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.os.RemoteException;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -14,6 +18,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.facebook.stetho.Stetho;
 import com.testcode.gameofthrones.adapters.SelectionsPagerAdapter;
 import com.testcode.gameofthrones.data.CharacterColumns;
@@ -25,9 +33,13 @@ import com.testcode.gameofthrones.rest.ApiClient;
 import com.testcode.gameofthrones.rest.ApiInterface;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.R.attr.bitmap;
 
 /**
  * Created by Fabian on 07/12/2016.
@@ -57,9 +69,7 @@ public class HomeActivity extends AppCompatActivity {
 
         Stetho.initializeWithDefaults(this);
         setSupportActionBar(toolbar);
-        setSpa(new SelectionsPagerAdapter(getSupportFragmentManager()));
-        getVp().setAdapter(getSpa());
-        tabLayout.setupWithViewPager(getVp());
+
 
         fetchdata();
     }
@@ -91,12 +101,21 @@ public class HomeActivity extends AppCompatActivity {
                             ,response.body().get(i).getHn(),response.body().get(i).getHi());
                     addHousetodb(house);
                 }
+
+                showdata();
+
             }
             @Override
             public void onFailure(Call<List<GoTCharacter>> call, Throwable t) {
                 Log.e("NEWS: ","FAIL"+ t.toString());
             }
         });
+    }
+
+    public void showdata(){
+        setSpa(new SelectionsPagerAdapter(getSupportFragmentManager()));
+        getVp().setAdapter(getSpa());
+        tabLayout.setupWithViewPager(getVp());
     }
 
     public boolean addCharactertodb(GoTCharacter item){
@@ -173,8 +192,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null;
+        ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
     @Override

@@ -44,6 +44,9 @@ public class GoTHousesListFragment extends Fragment implements LoaderManager.Loa
         tv.setVisibility(View.GONE);
 
         pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.pb);
+        pb.setVisibility(View.VISIBLE);
+
+
         rv = (RecyclerView) rootView.findViewById(R.id.rv_houses);
         mSearchView = (SearchView) rootView.findViewById(R.id.search_view);
         int id = mSearchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);

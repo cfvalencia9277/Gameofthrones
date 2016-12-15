@@ -43,6 +43,7 @@ public class GoTListFragment extends Fragment implements LoaderManager.LoaderCal
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
         pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.pb);
+        pb.setVisibility(View.VISIBLE);
         rv = (RecyclerView) rootView.findViewById(R.id.rv_characters);
         mSearchView = (SearchView) rootView.findViewById(R.id.search_view);
         int id = mSearchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
