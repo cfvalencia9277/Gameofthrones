@@ -17,6 +17,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -51,6 +53,7 @@ public class HomeActivity extends AppCompatActivity {
     ViewPager vp;
     Toolbar toolbar;
     TabLayout tabLayout;
+    ProgressBar initial_pb;
     ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
     @Override
@@ -60,7 +63,10 @@ public class HomeActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
+        initial_pb = (ProgressBar)findViewById(R.id.initial_pb);
         setVp((ViewPager) findViewById(R.id.container));
+
+        initial_pb.setVisibility(View.VISIBLE);
 
         if(!isNetworkConnected()){
             Toast.makeText(this, getString(R.string.no_internet),
@@ -116,6 +122,7 @@ public class HomeActivity extends AppCompatActivity {
         setSpa(new SelectionsPagerAdapter(getSupportFragmentManager()));
         getVp().setAdapter(getSpa());
         tabLayout.setupWithViewPager(getVp());
+        initial_pb.setVisibility(View.GONE);
     }
 
     public boolean addCharactertodb(GoTCharacter item){

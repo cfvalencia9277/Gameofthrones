@@ -51,18 +51,18 @@ public class HouseAdapter extends RecyclerViewCursorAdapter<HouseAdapter.GotHous
             if(name.equals("")){
                 holder.houseName.setVisibility(View.VISIBLE);
                 holder.houseName.setText(R.string.no_image_name);
-                Glide.with(mcontext).load(R.drawable.iron_throne).asBitmap().into(holder.imp);
+                Glide.with(mcontext).load(R.drawable.iron_throne).thumbnail(0.1f).into(holder.imp);
             }
             else{
                 holder.houseName.setVisibility(View.VISIBLE);
                 holder.houseName.setText(name);
-                Glide.with(mcontext).load(R.drawable.iron_throne).asBitmap().into(holder.imp);
+                Glide.with(mcontext).load(R.drawable.iron_throne).thumbnail(0.1f).into(holder.imp);
             }
         }
         else {
             holder.houseName.setVisibility(View.GONE);
             Glide.with(mcontext).load(imgpath).error(R.drawable.iron_throne)
-                    .placeholder(R.drawable.got_placeholder).into(holder.imp);
+                    .placeholder(R.drawable.got_placeholder).thumbnail(0.1f).into(holder.imp);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
